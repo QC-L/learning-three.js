@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../node_modules/three/build/three.js"></script>
+</head>
+<body onload="init()">
+    <canvas id="mainCanvas" width="400" height="400"></canvas>
+    <script>
+        // WebGL渲染需要H5的canvas标签
+        // 初始化WebGL的两种方式, 无区别
+        // 1.直接在body中定义
+        // 2.通过three.js生成
+        function init() {
+            // 典型three.js程序至少包括
+            // 1.renderer 渲染器
+            // 直接在body中定义 生成渲染器
+            var renderer = new THREE.WebGLRenderer({
+                canvas: document.getElementById('mainCanvas')
+            });
+            // 通过three.js直接生成
+//            var renderer = new THREE.WebGLRenderer();
+//            renderer.setSize(400, 400);
+//            document.getElementsByTagName('body')[0].appendChild(renderer.domElement);
+
+            renderer.setClearColor(0x000000);
+            // 2.Scene 场景
+            var scene = new THREE.Scene();
+            // 3.Camera 照相机
+            var camera = new THREE.PerspectiveCamera(45, 4 / 3, 1, 1000)
+            camera.position.set(0, 0, 5)
+            scene.add(camera)
+            // 4.长方体
+            var cube = new THREE.Mesh(new THREE.CubeGeometry(1, 2, 3), new THREE.MeshBasicMaterial({
+                color: 0xff0000
+            }));
+            scene.add(cube);
+
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+</html>
